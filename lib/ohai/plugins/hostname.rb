@@ -140,7 +140,7 @@ Ohai.plugin(:Hostname) do
   collect_data(:solaris2) do
     machinename from_cmd("hostname")
     hostname from_cmd("hostname")
-    fqdn resolve_fqdn
+    fqdn from_cmd("hostname")
     domain collect_domain
   end
 
