@@ -1,6 +1,7 @@
 #
 # Author: sawanoboriyu@higanworks.com
 # Copyright (C) 2014 HiganWorks LLC
+# Copyright (C) 2015 Jacques Marneweck.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,8 +39,8 @@ Ohai.plugin(:Joyent) do
 
   def collect_pkgsrc
     if File.exist?('/opt/local/etc/pkg_install.conf')
-      sm_pkgsrc = ::File.read("/opt/local/etc/pkg_install.conf").split("=")
-      sm_pkgsrc[1].chomp
+      sm_pkgsrc =  Hash[::File.read("/opt/local/etc/pkg_install.conf").split("\n").each.map { |l| l.chomp.split("=") }]['PKG_PATH']
+      sm_pkgsrc
     else
       nil
     end
